@@ -58,6 +58,7 @@ namespace Inventar.VM
             Dobav = new CommandMvvm(() =>
             {
                 DobavlenieWindow dobavlenie = new DobavlenieWindow();
+                this.close();
                 dobavlenie.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -65,6 +66,7 @@ namespace Inventar.VM
             Poisk = new CommandMvvm(() =>
             {
                 PoiskWindow poisk = new PoiskWindow();
+                this.close();
                 poisk.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -72,6 +74,7 @@ namespace Inventar.VM
             Naznach = new CommandMvvm(() =>
             {
                 NaznachenieWindow Naznachenie = new NaznachenieWindow();
+                this.close();
                 Naznachenie.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -85,6 +88,11 @@ namespace Inventar.VM
         private void SearchOborud(string search)
         {
             PoiskSpisok = new ObservableCollection<Equipment>(OborudPoisk.GetTable().SearchOborud(search));
+        }
+        Action close;
+        internal void SetClose(Action close)
+        {
+            this.close = close;
         }
 
     }

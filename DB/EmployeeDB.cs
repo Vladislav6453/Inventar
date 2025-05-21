@@ -80,6 +80,7 @@ namespace Inventar.DB
                     MySqlDataReader dr = command.ExecuteReader();
                     while (dr.Read())
                     {
+                        JobTitle job = new JobTitle();
                         int ID = dr.GetInt32(0);
                         string FirstName = string.Empty;
                         string LastName = string.Empty;
@@ -88,6 +89,7 @@ namespace Inventar.DB
                         double WorkExperience = 0;
                         string Email = string.Empty;
                         int IDJobTitle = 0;
+                        string Name = string.Empty;
                         if (!dr.IsDBNull(1))
                             FirstName = dr.GetString("FirstName");
                         if (!dr.IsDBNull(2))
@@ -102,6 +104,10 @@ namespace Inventar.DB
                             Email = dr.GetString("Email");
                         if (!dr.IsDBNull(7))
                             IDJobTitle = dr.GetInt32("IDJobTitle");
+                        if (!dr.IsDBNull(8))
+                            Name = dr.GetString("Name");
+
+                        job.ID = ID; job.Name = Name;
                         employees.Add(new Employee
                         {
                             ID = ID,
@@ -111,7 +117,8 @@ namespace Inventar.DB
                             PhoneNumber = PhoneNumber,
                             WorkExperience = WorkExperience,
                             Email = Email,
-                            IDJobTitle = IDJobTitle
+                            IDJobTitle = IDJobTitle,
+                            JobTitle = job
                         });
                     }
                 }

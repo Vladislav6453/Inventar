@@ -61,7 +61,7 @@ namespace Inventar.DB
             return result;
         }
 
-        internal List<Appointment> SelectAll()
+        internal List<Appointment> SelectAll(string search = null)
         {
 
             List<Appointment> appointments = new List<Appointment>();
@@ -70,15 +70,25 @@ namespace Inventar.DB
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT a.`ID`, a.`EmployeeID`, e.`FirstName`, e.`LastName`, a.`EquipmentID`, q.`Name`,  a.`EquipmentDate`, a.`ReturnDate` FROM `Appointment` a JOIN `Employees` e ON a.`EmployeeID` = e.`ID` JOIN `Equipment` q ON a.`EquipmentID` = q.`ID`");
+                string searchText = "";
+                if (!string.IsNullOrEmpty(search))
+                {
+                    searchText = $"WHERE e.FirstName Like '%{search}%'";
+                }
+                var command = connection.CreateCommand($"SELECT a.`ID`, a.`EmployeeID`, e.`FirstName`, e.`LastName`, a.`EquipmentID`, q.`Name`,  a.`EquipmentDate`, a.`ReturnDate` FROM `Appointment` a JOIN `Employees` e ON a.`EmployeeID` = e.`ID` JOIN `Equipment` q ON a.`EquipmentID` = q.`ID` {searchText}");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
                     while (dr.Read())
                     {
+                        Employee emp = new Employee();
+                        Equipment eq = new Equipment();
                         int ID = dr.GetInt32(0);
                         int EmployeeID = dr.GetInt32(0);
                         int EquipmentID = dr.GetInt32(0);
+                        string FirstName = string.Empty;
+                        string LastName = string.Empty;
+                        string Name = string.Empty;
                         DateTime EquipmentDate = new DateTime();
                         DateTime ReturnDate = new DateTime();
                         if (!dr.IsDBNull(1))
@@ -86,18 +96,31 @@ namespace Inventar.DB
                         if (!dr.IsDBNull(2))
                             EquipmentID = dr.GetInt32("EquipmentID");
                         if (!dr.IsDBNull(3))
-                            EquipmentDate = dr.GetDateTime("EquipmentDate");
+                            FirstName = dr.GetString("FirstName");
                         if (!dr.IsDBNull(4))
+                            LastName = dr.GetString("LastName");
+                        if (!dr.IsDBNull(5))
+                            Name = dr.GetString("Name");
+                        if (!dr.IsDBNull(6))
+                            EquipmentDate = dr.GetDateTime("EquipmentDate");
+                        if (!dr.IsDBNull(7))
                             ReturnDate = dr.GetDateTime("ReturnDate");
                         Appointment appointment = new Appointment { EmployeeID = EmployeeID, EquipmentID = EquipmentID, EquipmentDate = EquipmentDate, ReturnDate = ReturnDate };
 
+                        emp.ID = EmployeeID;
+                        emp.FirstName = FirstName;
+                        emp.LastName = LastName;
+                        eq.ID = EquipmentID;
+                        eq.Name = Name;
                         appointments.Add(new Appointment
                         {
                             ID = ID,
                             EmployeeID = EmployeeID,
                             EquipmentID = EquipmentID,
                             EquipmentDate = EquipmentDate,
-                            ReturnDate = ReturnDate
+                            ReturnDate = ReturnDate,
+                            Employee = emp,
+                            Equipment = eq
                         });
                     }
                 }
@@ -121,7 +144,7 @@ namespace Inventar.DB
                 var mc = connection.CreateCommand($"update `Appointment` set `ID`=@ID, `EmployeeID`=@EmployeeID,`EquipmentID`=@EquipmentID,`EquipmentDate`=@EquipmentDate, `ReturnDate`=@ReturnDate where `id` = {edit.ID}");
                 mc.Parameters.Add(new MySqlParameter("ID", edit.ID));
                 mc.Parameters.Add(new MySqlParameter("EmployeeID", edit.EmployeeID));
-                mc.Parameters.Add(new MySqlParameter("EquipmentID", edit.EmployeeID));
+                mc.Parameters.Add(new MySqlParameter("EquipmentID", edit.EquipmentID));
                 mc.Parameters.Add(new MySqlParameter("EquipmentDate", edit.EquipmentDate));
                 mc.Parameters.Add(new MySqlParameter("ReturnDate", edit.ReturnDate));
 

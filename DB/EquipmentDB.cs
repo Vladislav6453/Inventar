@@ -71,12 +71,13 @@ namespace Inventar.DB
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT e.`ID`, e.`Name`, e.`InventoryNumber`, e.`DateOfPurchase`, e.`ServiceLife`, e.`Price`, e.`IDEquipmentTipe`, t.`Name`  from `Equipment` e JOIN `EquipmentTipe` t ON e.`IDEquipmentTipe` = t.`ID`");
+                var command = connection.CreateCommand("SELECT e.`ID`, e.`Name`, e.`InventoryNumber`, e.`DateOfPurchase`, e.`ServiceLife`, e.`Price`, e.`IDEquipmentTipe`, t.`Name` EqName  from `Equipment` e JOIN `EquipmentTipe` t ON e.`IDEquipmentTipe` = t.`ID`");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
                     while (dr.Read())
                     {
+                        EquipmentTipe Eq = new EquipmentTipe();
                         int ID = dr.GetInt32(0);
                         string Name = string.Empty;
                         int InventoryNumber = 0;
@@ -84,6 +85,7 @@ namespace Inventar.DB
                         double ServiceLife = 0;
                         decimal Price = 0;
                         int IDEquipmentTipe = 0;
+                        string EqName = null;
                         if (!dr.IsDBNull(1))
                             Name = dr.GetString("Name");
                         if (!dr.IsDBNull(2))
@@ -96,6 +98,11 @@ namespace Inventar.DB
                             Price = dr.GetDecimal("Price");
                         if (!dr.IsDBNull(6))
                             IDEquipmentTipe = dr.GetInt32("IDEquipmentTipe");
+                        if (!dr.IsDBNull(7))
+                            EqName = dr.GetString("EqName");
+
+                        Eq.Name = EqName;
+                        Eq.ID = IDEquipmentTipe;
                         equipments.Add(new Equipment
                         {
                             ID = ID,
@@ -104,7 +111,8 @@ namespace Inventar.DB
                             DateOfPurchase = DateOfPurchase,
                             ServiceLife = ServiceLife,
                             Price = Price,
-                            IDEquipmentTipe = IDEquipmentTipe
+                            IDEquipmentTipe = IDEquipmentTipe,
+                            EquipmentTipe = Eq
                         });
                     }
                 }

@@ -7,7 +7,8 @@
         xmlns:mvvm="clr-namespace:Inventar.VM"
         mc:Ignorable="d"
         DataContext="{DynamicResource vm}"
-        Title="Poisk" Height="600" Width="800">
+        WindowStartupLocation="CenterScreen"
+        Title="Poisk" Height="592" Width="800">
     <Window.Resources>
         <mvvm:PoiskVM x:Key="vm"/>
     </Window.Resources>
@@ -134,8 +135,12 @@
                         <RowDefinition Height ="0,7*"/>
                         <RowDefinition Height ="0,3*"/>
                     </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                    <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" CornerRadius="20"   ClipToBounds="True" Margin="10" Visibility="{Binding VisibilitySpisokSotrudnik}">
+                    <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" CornerRadius="20"   ClipToBounds="True" Margin="10" Visibility="{Binding VisibilitySpisokSotrudnik}" Grid.ColumnSpan="2">
                         <ListView Background="Transparent" BorderThickness="0" ItemsSource="{Binding SpisokSotrudnik}" SelectedItem="{Binding SelectedSotrudnik}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -153,14 +158,14 @@
                                         <TextBlock Text="Email:" Width="35" />
                                         <TextBlock Text="{Binding Email}" Width="150"/>
                                         <TextBlock Text="Профессия:" Width="80" />
-                                        <TextBlock Text="{Binding JobTitle.Name}" Width="70"/>
+                                        <TextBlock Text="{Binding JobTitle.Name}" Width="120"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
                     </Border>
 
-                    <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" CornerRadius="20"   ClipToBounds="True" Margin="10" Visibility="{Binding VisibilitySpisokOborud}">
+                    <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" CornerRadius="20"   ClipToBounds="True" Margin="10" Visibility="{Binding VisibilitySpisokOborud}" Grid.ColumnSpan="2">
                         <ListView Background="Transparent" BorderThickness="0" ItemsSource="{Binding SpisokOborud}" SelectedItem="{Binding SelectedOborud}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -176,26 +181,26 @@
                                         <TextBlock Text="Цена:" Width="35" />
                                         <TextBlock Text="{Binding Price}" Width="80" />
                                         <TextBlock Text="Тип оборудования:" Width="110" />
-                                        <TextBlock Text="{Binding EquipmentTipe.Name}" Width="50"/>
+                                        <TextBlock Text="{Binding EquipmentTipe.Name}" Width="200"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
                     </Border>
 
-                    <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" CornerRadius="20"   ClipToBounds="True" Margin="10" Visibility="{Binding VisibilitySpisokNaznach}">
+                    <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" CornerRadius="20"   ClipToBounds="True" Margin="10" Visibility="{Binding VisibilitySpisokNaznach}" Grid.ColumnSpan="2">
                         <ListView Background="Transparent" BorderThickness="0" ItemsSource="{Binding SpisokNaznach}" SelectedItem="{Binding SelectedNaznach}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Имя:" Width="30" />
-                                        <TextBlock Text="{Binding FirstName}" Width="90"/>
+                                        <TextBlock Text="{Binding Employee.FirstName}" Width="90"/>
                                         <TextBlock Text="Название:" Width="60" />
-                                        <TextBlock Text="{Binding Name}" Width="150" />
+                                        <TextBlock Text="{Binding Equipment.Name}" Width="150" />
                                         <TextBlock Text="Начало срока:" Width="85" />
                                         <TextBlock Text="{Binding EquipmentDate}" Width="170"/>
                                         <TextBlock Text="Конец срока:" Width="80" />
-                                        <TextBlock Text="{Binding ReturnDate}" Width="70"/>
+                                        <TextBlock Text="{Binding ReturnDate}" Width="110"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
@@ -210,6 +215,19 @@
                             <Button Foreground="Black" Content="Удалить" Margin="5" Background="Transparent" BorderThickness="0" FontSize="15" HorizontalAlignment="Center" Command="{Binding Delete}"/>
                         </Border>
                     </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding VisibilitySpisokNaznach}">
+                        <Border Background="White" CornerRadius="20" Height="40" Margin="10,4" Grid.Column="1" Grid.Row ="1" VerticalAlignment="Top">
+                            <StackPanel Orientation = "Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Source="/Images/Значок поиска.png"/>
+                                <TextBlock Text="Поиск" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="LightGray"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="White" CornerRadius="20" Height="40" Grid.Column="1" Margin="10,4">
+                            <TextBox Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="Black"/>
+                        </Border>
+                    </StackPanel>
+                    
+                    
                 </Grid>
             </Grid>
         </Grid>

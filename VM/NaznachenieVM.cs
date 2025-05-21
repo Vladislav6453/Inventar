@@ -90,6 +90,7 @@ namespace Inventar.VM
             Dobav = new CommandMvvm(() =>
             {
                 DobavlenieWindow dobavlenie = new DobavlenieWindow();
+                this.close();
                 dobavlenie.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -97,6 +98,7 @@ namespace Inventar.VM
             Poisk = new CommandMvvm(() =>
             {
                 PoiskWindow poisk = new PoiskWindow();
+                this.close();
                 poisk.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -104,6 +106,7 @@ namespace Inventar.VM
             Home = new CommandMvvm(() =>
             {
                 HomeWindow Home = new HomeWindow();
+                this.close();
                 Home.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -134,6 +137,11 @@ namespace Inventar.VM
         {
             Employees = new ObservableCollection<Employee>(EmployeeDB.GetDb().SelectAll());
             Equipments = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll());
+        }
+        Action close;
+        internal void SetClose(Action close)
+        {
+            this.close = close;
         }
     }
 }

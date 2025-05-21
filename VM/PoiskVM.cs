@@ -39,6 +39,17 @@ namespace Inventar.VM
         private Visibility visibilitySotrudnik = Visibility.Visible;
         private Visibility visibilityOborud = Visibility.Collapsed;
         private Visibility visibilityNaznach = Visibility.Collapsed;
+        private string search;
+
+        public string Search
+        {
+            get => search;
+            set
+            {
+                search = value;
+                SelectAll();
+            }
+        }
 
         public Visibility VisibilitySotrudnik
         {
@@ -224,8 +235,11 @@ namespace Inventar.VM
 
                 selectedNaznach = value;
                 if (selectedNaznach != null)
+                {
                     SelectedNaznach.Employee = VeborEmployee.FirstOrDefault(emp => emp.ID == selectedNaznach.EmployeeID);
                     SelectedNaznach.Equipment = VeborEquipment.FirstOrDefault(eq => eq.ID == selectedNaznach.EquipmentID);
+                }
+                    
                 Signal();
             }
         }
@@ -317,6 +331,7 @@ namespace Inventar.VM
             {
                 if (VisibilitySotrudnik == Visibility.Visible)
                 {
+                    SelectedSotrudnik.IDJobTitle = SelectedSotrudnik.JobTitle.ID;
                     if (SelectedSotrudnik.ID == 0)
                     {
                         EmployeeDB.GetDb().Insert(SelectedSotrudnik);
@@ -328,6 +343,7 @@ namespace Inventar.VM
 
                else if (VisibilityOborud == Visibility.Visible)
                 {
+                    SelectedOborud.IDEquipmentTipe = SelectedOborud.EquipmentTipe.ID;
                     if (SelectedOborud.ID == 0)
                     {
                         EquipmentDB.GetDb().Insert(SelectedOborud);
@@ -339,7 +355,9 @@ namespace Inventar.VM
 
               else  if (VisibilityNaznach == Visibility.Visible)
                 {
-                    if (SelectedOborud.ID == 0)
+                    SelectedNaznach.EmployeeID = SelectedNaznach.Employee.ID;
+                    SelectedNaznach.EquipmentID = SelectedNaznach.Equipment.ID;
+                    if (SelectedNaznach.ID == 0)
                     {
                         AppointmentDB.GetDb().Insert(SelectedNaznach);
                     }
@@ -433,6 +451,7 @@ namespace Inventar.VM
             Home = new CommandMvvm(() =>
             {
                 HomeWindow Home = new HomeWindow();
+                this.close();
                 Home.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -440,6 +459,7 @@ namespace Inventar.VM
             Dobav = new CommandMvvm(() =>
             {
                 DobavlenieWindow dobavlenie = new DobavlenieWindow();
+                this.close();
                 dobavlenie.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -447,6 +467,7 @@ namespace Inventar.VM
             Naznach = new CommandMvvm(() =>
             {
                 NaznachenieWindow naznachenie = new NaznachenieWindow();
+                this.close();
                 naznachenie.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -457,10 +478,15 @@ namespace Inventar.VM
             JobTitles = new ObservableCollection<JobTitle>(JobTitleDB.GetDb().SelectAll());
             EquipmentTipes = new ObservableCollection<EquipmentTipe>(EquipmentTipeDB.GetDb().SelectAll());
             VeborEmployee = new ObservableCollection<Employee>(EmployeeDB.GetDb().SelectAll());
+            VeborEquipment = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll());
             SpisokSotrudnik = new ObservableCollection<Employee>(EmployeeDB.GetDb().SelectAll());
             SpisokOborud = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll());
-            SpisokNaznach = new ObservableCollection<Appointment>(AppointmentDB.GetDb().SelectAll());
+            SpisokNaznach = new ObservableCollection<Appointment>(AppointmentDB.GetDb().SelectAll(Search));
         }
-
+        Action close;
+        internal void SetClose(Action close)
+        {
+            this.close = close;
+        }
     }
 }

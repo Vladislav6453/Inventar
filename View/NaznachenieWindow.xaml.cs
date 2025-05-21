@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Inventar.VM;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,11 +23,7 @@ namespace Inventar
         public NaznachenieWindow()
         {
             InitializeComponent();
-        }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
+            (DataContext as NaznachenieVM).SetClose(Close);
         }
     }
 }

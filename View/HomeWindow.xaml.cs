@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using Inventar.VM;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,11 +20,7 @@ namespace Inventar
         public HomeWindow()
         {
             InitializeComponent();
-            var spisok = new List<dynamic>
-            {
-                new { Name = "Кузнецов", FirstName = "Владик", Equipment = "Станок" ,EquipmentDate = "12", ReturnDate = "13" },
-
-            };
+            (DataContext as HomeVM).SetClose(Close);
         }
 
 

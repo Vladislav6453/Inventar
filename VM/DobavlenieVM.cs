@@ -142,6 +142,7 @@ namespace Inventar.VM
             Naznachit = new CommandMvvm(() =>
             {
                 NaznachenieWindow naznachenie = new NaznachenieWindow();
+                this.close();
                 naznachenie.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -149,6 +150,7 @@ namespace Inventar.VM
             Poisk = new CommandMvvm(() =>
             {
                 PoiskWindow poisk = new PoiskWindow();
+                this.close();
                 poisk.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -156,6 +158,7 @@ namespace Inventar.VM
             Home = new CommandMvvm(() =>
             {
                 HomeWindow Home = new HomeWindow();
+                this.close();
                 Home.ShowDialog();
                 SelectAll();
             }, () => true);
@@ -241,6 +244,12 @@ namespace Inventar.VM
         {
             JobTitles = new ObservableCollection<JobTitle>(JobTitleDB.GetDb().SelectAll());
             EquipmentTipes = new ObservableCollection<EquipmentTipe>(EquipmentTipeDB.GetDb().SelectAll());
+        }
+
+        Action close;
+        internal void SetClose(Action close)
+        {
+            this.close = close;
         }
     }
 }
