@@ -479,8 +479,8 @@ namespace Inventar.VM
             EquipmentTipes = new ObservableCollection<EquipmentTipe>(EquipmentTipeDB.GetDb().SelectAll());
             VeborEmployee = new ObservableCollection<Employee>(EmployeeDB.GetDb().SelectAll());
             VeborEquipment = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll());
-            SpisokSotrudnik = new ObservableCollection<Employee>(EmployeeDB.GetDb().SelectAll());
-            SpisokOborud = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll());
+            SpisokSotrudnik = new ObservableCollection<Employee>(EmployeeDB.GetDb().SelectAll(Search));
+            SpisokOborud = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll(Search));
             SpisokNaznach = new ObservableCollection<Appointment>(AppointmentDB.GetDb().SelectAll(Search));
         }
         Action close;

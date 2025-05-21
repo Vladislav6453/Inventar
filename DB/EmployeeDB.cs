@@ -66,7 +66,7 @@ namespace Inventar.DB
             return result;
         }
 
-        internal List<Employee> SelectAll()
+        internal List<Employee> SelectAll(string search = null)
         {
             List<Employee> employees = new List<Employee>();
             if (connection == null)
@@ -74,7 +74,12 @@ namespace Inventar.DB
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT e.`ID`, e.`FirstName`, e.`LastName`, e.`SurName`, e.`PhoneNumber`, e.`WorkExperience`, e.`Email`, e.`IDJobTitle`, j.`Name`  from `Employees` e JOIN `JobTitle` j ON e.`IDJobTitle` = j.`ID`");
+                string searchText = "";
+                if (!string.IsNullOrEmpty(search))
+                {
+                    searchText = $"WHERE e.LastName Like '%{search}%'";
+                }
+                var command = connection.CreateCommand($"SELECT e.`ID`, e.`FirstName`, e.`LastName`, e.`SurName`, e.`PhoneNumber`, e.`WorkExperience`, e.`Email`, e.`IDJobTitle`, j.`Name`  from `Employees` e JOIN `JobTitle` j ON e.`IDJobTitle` = j.`ID` {searchText}");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();

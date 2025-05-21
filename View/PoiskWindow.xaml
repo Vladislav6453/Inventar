@@ -215,7 +215,7 @@
                             <Button Foreground="Black" Content="Удалить" Margin="5" Background="Transparent" BorderThickness="0" FontSize="15" HorizontalAlignment="Center" Command="{Binding Delete}"/>
                         </Border>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="1" Visibility="{Binding VisibilitySpisokNaznach}">
+                    <StackPanel Grid.Row="1" Grid.Column="1">
                         <Border Background="White" CornerRadius="20" Height="40" Margin="10,4" Grid.Column="1" Grid.Row ="1" VerticalAlignment="Top">
                             <StackPanel Orientation = "Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Image Source="/Images/Значок поиска.png"/>

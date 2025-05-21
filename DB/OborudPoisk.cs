@@ -62,53 +62,7 @@ namespace Inventar.Model
 
         }
 
-        public List<Appointment> SearchONaznach(string search)
-        {
-            List<Appointment> result = new();
-            List<Employee> employees = new();
-            List<Equipment> equipments = new();
-
-            string query = $"SELECT a.`ID`AS 'AppointmentID', a.`EmployeeID`, e.`FirstName`, e.`LastName`, a.`EquipmentID`, q.`Name`,  a.`EquipmentDate`, a.`ReturnDate` FROM `Appointment` a JOIN `Employees` e ON a.`EmployeeID` = e.`ID` JOIN `Equipment` q ON a.`EquipmentID` = q.`ID` WHERE q.Name LIKE @search";
-
-            if (dbConnection.OpenConnection())
-            {
-                using (var mc = dbConnection.CreateCommand(query))
-                {
-
-                    mc.Parameters.Add(new MySqlParameter("search", $"%{search}%"));
-                    using (var dr = mc.ExecuteReader())
-                    {
-                        while (dr.Read())
-                        {
-
-                            //var Appointment = new Appointment();
-                            //Appointment.ID = dr.GetInt32("AppointmentID");
-                            //Appointment.EmployeeID = dr.GetInt32("EmployeeID");
-                            //Appointment.EquipmentID = dr.GetInt32("EquipmentID");
-                            //Appointment.EquipmentDate = dr.GetDateTime("EquipmentDate");
-                            //Appointment.ReturnDate = dr.GetDateTime("ReturnDate");
-
-                            //var Employee = employees.FirstOrDefault(s => s.ID == Employee.EmployeeID);
-                            //if (Employee == null)
-                            //{
-                            //    Employee = new EquipmentTipe();
-                            //    Employee.ID = Equipment.IDEquipmentTipe;
-                            //    Employee.Name = dr.GetString("EquipmentTipeName");
-
-                            //    tipes.Add(EquipmentTipe);
-                            //}
-
-                            //Equipment.EquipmentTipe = EquipmentTipe;
-
-                            //result.Add(Equipment);
-                        }
-                    }
-                }
-                dbConnection.CloseConnection();
-            }
-            return result;
-
-        }
+        
 
         // синглтон start
         static OborudPoisk table;

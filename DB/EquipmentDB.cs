@@ -63,7 +63,7 @@ namespace Inventar.DB
             return result;
         }
 
-        internal List<Equipment> SelectAll()
+        internal List<Equipment> SelectAll(string search = null)
         {
             List<Equipment> equipments = new List<Equipment>();
             if (connection == null)
@@ -71,7 +71,12 @@ namespace Inventar.DB
 
             if (connection.OpenConnection())
             {
-                var command = connection.CreateCommand("SELECT e.`ID`, e.`Name`, e.`InventoryNumber`, e.`DateOfPurchase`, e.`ServiceLife`, e.`Price`, e.`IDEquipmentTipe`, t.`Name` EqName  from `Equipment` e JOIN `EquipmentTipe` t ON e.`IDEquipmentTipe` = t.`ID`");
+                string searchText = "";
+                if (!string.IsNullOrEmpty(search))
+                {
+                    searchText = $"WHERE e.Name Like '%{search}%'";
+                }
+                var command = connection.CreateCommand($"SELECT e.`ID`, e.`Name`, e.`InventoryNumber`, e.`DateOfPurchase`, e.`ServiceLife`, e.`Price`, e.`IDEquipmentTipe`, t.`Name` EqName  from `Equipment` e JOIN `EquipmentTipe` t ON e.`IDEquipmentTipe` = t.`ID` {searchText}");
                 try
                 {
                     MySqlDataReader dr = command.ExecuteReader();
