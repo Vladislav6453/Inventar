@@ -26,7 +26,7 @@
                 </Grid.RowDefinitions>
 
                 <Border Background="White" CornerRadius="20" Height="40" VerticalAlignment="Top" Grid.Row="0" Margin="10">
-                    <TextBlock Text="Главная" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
+                    <TextBlock Text="Добавление" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
                 </Border>
 
                 <Border Background="White" CornerRadius="20" VerticalAlignment="Top"  Grid.Row="1" Margin="10">
