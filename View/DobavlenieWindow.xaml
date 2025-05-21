@@ -1,0 +1,206 @@
+﻿<Window x:Class="Inventar.DobavlenieWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mvvm="clr-namespace:Inventar.VM"
+        xmlns:local="clr-namespace:Inventar"
+        mc:Ignorable="d"
+        DataContext="{DynamicResource vm}"
+        Title="Dobavlenie" Height="702" Width="792">
+    <Window.Resources>
+        <mvvm:DobavlenieVM x:Key="vm"/>
+    </Window.Resources>
+    <Grid>
+        <Border Background="Black" CornerRadius="20">
+            <Grid Background="Black" Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition />
+
+                </Grid.RowDefinitions>
+
+                <Border Background="White" CornerRadius="20" Height="40" VerticalAlignment="Top" Grid.Row="0" Margin="10">
+                    <TextBlock Text="Главная" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"/>
+                </Border>
+
+                <Border Background="White" CornerRadius="20" VerticalAlignment="Top"  Grid.Row="1" Margin="10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="Главная" Padding="10,5" Background="White" BorderThickness="0" FontSize="19" Command="{Binding Home}"/>
+                        <Label Content="|" Padding="10,5" FontSize="19"/>
+                        <Button Content="Назначить" Padding="10,5" Background="White" BorderThickness="0" FontSize="19" Command="{Binding Naznachit}"/>
+                        <Label Content="|" Padding="10,5" FontSize="19"/>
+                        <Button Content="Редактирование" Padding="10,5" Background="White" BorderThickness="0" FontSize="19" Command="{Binding Poisk}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Background="White" CornerRadius="20" Height="40" VerticalAlignment="Top"  Grid.Row="2" Margin="10">
+                    <StackPanel Orientation = "Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border Grid.Column="0" CornerRadius="20" Background="{Binding BackGroundSotrudnik}"  Width="200" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="{Binding MinusBorderSotrudnik}">
+                            <Button Content="Сотрудник" Background="Transparent" BorderThickness="0" FontSize="19" Command="{Binding SmenaSotrudnik}"/>
+                        </Border>
+                        <Border Grid.Column="0" CornerRadius="20" Background="{Binding BackGroundOborud}"  Width="200" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="{Binding MinusBorderOborud}">
+                            <Button Content="Оборудование" Background="Transparent" BorderThickness="0" FontSize="19" Command="{Binding SmenaOborud}"/>
+                        </Border>
+
+                    </StackPanel>
+                </Border>
+
+                <Grid Grid.Row="3" Visibility="{Binding VisibilityOborudovanie}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width ="0,3*"/>
+                        <ColumnDefinition Width ="0,7*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="0">
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left" >
+                            <Label Margin="5" Background="White" FontSize="15" Content="Наименование" Foreground="Black" />
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left" >
+                            <Label Margin="5" Background="White" FontSize="15" Content="Номер инвентаря" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <Label Margin="5" Background="White" FontSize="15" Content="Дата покупки" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <Label Margin="5" Background="White" FontSize="15" Content="Срок эксплаутации" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <Label Margin="5" Background="White" FontSize="15" Content="Стоимость" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <Label Margin="5" Background="White" FontSize="15" Content="Тип оборудования" Foreground="Black"/>
+                        </Border>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Column="1">
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text="{Binding Equipment.Name}" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left" >
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text="{Binding Equipment.InventoryNumber}" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <DatePicker Margin="5" Background="White" Height="30" FontSize="15" SelectedDate="{Binding Equipment.DateOfPurchase}" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text="{Binding Equipment.ServiceLife}" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text="{Binding Equipment.Price}" Foreground="Black"/>
+                        </Border>
+
+                        <Border CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <ComboBox SelectedItem ="{Binding Equipment.EquipmentTipe}" Height="30" Margin="5" ItemsSource="{Binding EquipmentTipes}" Background="White" FontSize="15"  Foreground="Black" BorderThickness="0" DisplayMemberPath="Name"/>
+                        </Border>
+
+                    </StackPanel>
+
+
+                </Grid>
+
+                <Grid Grid.Row="3" Visibility="{Binding VisibilitySotrudnik}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width ="0,3*"/>
+                        <ColumnDefinition Width ="0,7*"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="0" >
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left" >
+                            <Label Margin="5" Background="White" FontSize="15" Content ="Имя" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left"  >
+                            <Label Margin="5" Background="White" FontSize="15" Content="Фамилия" Foreground="Black" />
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <Label Margin="5" Background="White" FontSize="15" Content="Отчество" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <Label Margin="5" Background="White" FontSize="15" Content="Номер телефона" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <Label Margin="5" Background="White" FontSize="15" Content="Стаж работы" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <Label Margin="5" Background="White" FontSize="15" Content="Адрес электронной почты" Foreground="Black"/>
+                        </Border>
+
+                        <Border Grid.Column="0" CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <Label Margin="5" Background="White" FontSize="15" Content="Должность" Foreground="Black"/>
+                        </Border>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="3" Grid.Column="1">
+
+                        <Border CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left" >
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text ="{Binding Employee.FirstName}" Foreground="Black"/>
+                        </Border>
+
+                        <Border CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left" >
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text ="{Binding Employee.LastName}" Foreground="Black" />
+                        </Border>
+
+                        <Border CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text="{Binding Employee.SurName}" Foreground="Black"/>
+                        </Border>
+
+                        <Border CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text="{Binding Employee.PhoneNumber}" Foreground="Black"/>
+                        </Border>
+
+                        <Border CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text="{Binding Employee.WorkExperience}" Foreground="Black"/>
+                        </Border>
+
+                        <Border CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <TextBox Margin="5" Background="White" Height="30" FontSize="15" Text="{Binding Employee.Email}" Foreground="Black"/>
+                        </Border>
+
+                        <Border CornerRadius="20" Background="White"  Grid.Row="1" Margin="10,4" Width="200" HorizontalAlignment="Left">
+                            <ComboBox SelectedItem ="{Binding Employee.JobTitle}" Height="30" Margin="5" ItemsSource="{Binding JobTitles}" Background="White" FontSize="15"  Foreground="Black" BorderThickness="0" DisplayMemberPath="Name"/>
+                        </Border>
+
+                    </StackPanel>
+
+                </Grid>
+
+                <Grid Grid.Row="4">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border CornerRadius="20" Background="White" Grid.Column="1" Margin="10,4" Width="200" HorizontalAlignment="Right" Height="40" VerticalAlignment="Top">
+                        <Button Foreground="Black" Content="Создать" Margin="5" Background="Transparent" BorderThickness="0" FontSize="15" HorizontalAlignment="Center" Command="{Binding Create}"/>
+                    </Border>
+
+                </Grid>
+
+
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
