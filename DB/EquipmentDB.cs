@@ -74,7 +74,7 @@ namespace Inventar.DB
                 string searchText = "";
                 if (!string.IsNullOrEmpty(search))
                 {
-                    searchText = $"WHERE e.Name Like '%{search}%'";
+                    searchText = $"WHERE e.Name Like '%{search}%' OR e.InventoryNumber Like '%{search}%'";
                 }
                 var command = connection.CreateCommand($"SELECT e.`ID`, e.`Name`, e.`InventoryNumber`, e.`DateOfPurchase`, e.`ServiceLife`, e.`Price`, e.`IDEquipmentTipe`, t.`Name` EqName  from `Equipment` e JOIN `EquipmentTipe` t ON e.`IDEquipmentTipe` = t.`ID` {searchText}");
                 try

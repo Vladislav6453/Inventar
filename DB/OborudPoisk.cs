@@ -18,7 +18,7 @@ namespace Inventar.Model
             List<Equipment> result = new();
             List<EquipmentTipe> tipes = new();
 
-            string query = $"SELECT e.ID AS 'EquipmentID', e.Name AS 'EquipmentName', InventoryNumber, DateOfPurchase, ServiceLife, Price, t.Name AS 'EquipmentTipeName', e.IDEquipmentTipe AS 'IDTipe' FROM Equipment e JOIN EquipmentTipe t ON IDEquipmentTipe = t.ID WHERE e.Name LIKE @search";
+            string query = $"SELECT e.ID AS 'EquipmentID', e.Name AS 'EquipmentName', InventoryNumber, DateOfPurchase, ServiceLife, Price, t.Name AS 'EquipmentTipeName', e.IDEquipmentTipe AS 'IDTipe' FROM Equipment e JOIN EquipmentTipe t ON IDEquipmentTipe = t.ID WHERE e.Name LIKE @search OR InventoryNumber LIKE @search";
 
             if (dbConnection.OpenConnection())
             {
