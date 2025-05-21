@@ -148,7 +148,7 @@
                                         <TextBlock Text="Имя:" Width="30" />
                                         <TextBlock Text="{Binding FirstName}" Width="90"/>
                                         <TextBlock Text="Фамилия:" Width="60" />
-                                        <TextBlock Text="{Binding LastName}" Width="70"/>
+                                        <TextBlock Text="{Binding LastName}" Width="80"/>
                                         <TextBlock Text="Отчество:" Width="60" />
                                         <TextBlock Text="{Binding SurName}" Width="110"/>
                                         <TextBlock Text="Номер телефона:" Width="100" />
@@ -193,14 +193,15 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Имя:" Width="30" />
-                                        <TextBlock Text="{Binding Employee.FirstName}" Width="90"/>
+                                        <TextBlock Text="Владелец:" Width="60" />
+                                        <TextBlock Text="{Binding Employee.FirstName}" Width="55"/>
+                                        <TextBlock Text="{Binding Employee.LastName}" Width="90"/>
                                         <TextBlock Text="Название:" Width="60" />
-                                        <TextBlock Text="{Binding Equipment.Name}" Width="150" />
+                                        <TextBlock Text="{Binding Equipment.Name}" Width="160" />
                                         <TextBlock Text="Начало срока:" Width="85" />
                                         <TextBlock Text="{Binding EquipmentDate}" Width="170"/>
                                         <TextBlock Text="Конец срока:" Width="80" />
-                                        <TextBlock Text="{Binding ReturnDate}" Width="110"/>
+                                        <TextBlock Text="{Binding ReturnDate}" Width="150"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
