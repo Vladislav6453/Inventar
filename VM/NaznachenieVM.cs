@@ -20,17 +20,7 @@ namespace Inventar.VM
         private Equipment shtuka;
         private DateTime ot;
         private DateTime doo;
-        private string search;
 
-        public string Search
-        {
-            get => search;
-            set
-            {
-                search = value;
-                SelectAll();
-            }
-        }
         public ObservableCollection<Appointment> SpisokNaznach
         {
             get => spisokNaznach;
@@ -182,7 +172,6 @@ namespace Inventar.VM
         {
             Employees = new ObservableCollection<Employee>(EmployeeDB.GetDb().SelectAll());
             Equipments = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll());
-            SpisokNaznach = new ObservableCollection<Appointment>(AppointmentDB.GetDb().SelectAll(Search));
         }
         Action close;
         internal void SetClose(Action close)

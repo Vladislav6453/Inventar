@@ -93,30 +93,9 @@
                 <Button Margin="10" Background="White" FontSize="20" Content="Назначить" BorderThickness="0" Command="{Binding Naznachit}"/>
             </Border>
 
-            <Border Background="White" CornerRadius="20" Height="40" Grid.Row="4"  Grid.Column="2" Margin="10,4" VerticalAlignment="Bottom"  >
-                <TextBox Text="{Binding Search, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="Black"/>
-            </Border>
+            
 
-            <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" CornerRadius="20"   ClipToBounds="True" Grid.Row="4" Margin="10" Grid.ColumnSpan="2">
-                <ListView Background="Transparent" BorderThickness="0" ItemsSource="{Binding SpisokNaznach}" SelectedItem="{Binding SelectedNaznach}">
-
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Владелец:" Width="60" />
-                                <TextBlock Text="{Binding Employee.LastName}" Width="65"/>
-                                <TextBlock Text="{Binding Employee.FirstName}" Width="90"/>
-                                <TextBlock Text="Название:" Width="60" />
-                                <TextBlock Text="{Binding Equipment.Name}" Width="160" />
-                                <TextBlock Text="Начало срока:" Width="85" />
-                                <TextBlock Text="{Binding EquipmentDate}" Width="170"/>
-                                <TextBlock Text="Конец срока:" Width="80" />
-                                <TextBlock Text="{Binding ReturnDate}" Width="150"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </Border>
+            
         </Grid>
     </Border>
 </Window>
