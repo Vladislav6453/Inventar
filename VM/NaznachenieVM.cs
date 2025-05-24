@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Inventar.VM
 {
@@ -13,11 +15,31 @@ namespace Inventar.VM
     {
         private ObservableCollection<Employee> employees = new();
         private ObservableCollection<Equipment> equipments = new();
+        private ObservableCollection<Appointment> spisokNaznach = new();
         private Employee newowner;
         private Equipment shtuka;
         private DateTime ot;
         private DateTime doo;
+        private string search;
 
+        public string Search
+        {
+            get => search;
+            set
+            {
+                search = value;
+                SelectAll();
+            }
+        }
+        public ObservableCollection<Appointment> SpisokNaznach
+        {
+            get => spisokNaznach;
+            set
+            {
+                spisokNaznach = value;
+                Signal();
+            }
+        }
         public DateTime Ot
         {
             get => ot;
@@ -111,9 +133,32 @@ namespace Inventar.VM
                 SelectAll();
             }, () => true);
 
+
+
             Naznachit = new CommandMvvm(() =>
             {
+                bool Peresech = false;
                 Appointment appointment = new Appointment();
+                foreach (var naznach in appointments)
+                {
+                    if(appointment.OverLaps(naznach))
+                    {
+                        Peresech = true;
+                        MessageBoxResult Oshibka = MessageBox.Show(
+                        "Вы не можете создать это назначение, потому  что этот временной интервал уже занят.",
+                        MessageBoxButton.Yes,
+                        MessageBoxImage.Question);
+                        if (Oshibka == MessageBoxResult.Yes)
+                        {
+                            SelectAll();
+                            Ot = DateTime.Now;
+                            Do = DateTime.Now;
+                        }
+                        break;
+                    }
+
+                }
+                
                 appointment.EmployeeID = NewOwner.ID;
                 appointment.EquipmentID = Shtuka.ID;
                 appointment.EquipmentDate = Ot;
@@ -137,11 +182,22 @@ namespace Inventar.VM
         {
             Employees = new ObservableCollection<Employee>(EmployeeDB.GetDb().SelectAll());
             Equipments = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll());
+            SpisokNaznach = new ObservableCollection<Appointment>(AppointmentDB.GetDb().SelectAll(Search));
         }
         Action close;
         internal void SetClose(Action close)
         {
             this.close = close;
+        }
+
+        public bool OverLaps(Appointment other)
+        {
+            if(NewOwner.ID == other.EmployeeID || Shtuka.ID == other.ID)
+            {
+                    return Ot < other.ReturnDate && Do > other.EquipmentDate;
+            }
+            return false;
+            
         }
     }
 }
