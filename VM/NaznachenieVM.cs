@@ -13,20 +13,33 @@ namespace Inventar.VM
 {
     internal class NaznachenieVM : BaseVM
     {
+        private ObservableCollection<Appointment> appointments = new();
         private ObservableCollection<Employee> employees = new();
         private ObservableCollection<Equipment> equipments = new();
-        private ObservableCollection<Appointment> spisokNaznach = new();
+        private ObservableCollection<Appointment> spisokAppointment = new();
+        private Appointment selectedNaznach;
+
         private Employee newowner;
         private Equipment shtuka;
         private DateTime ot;
         private DateTime doo;
 
-        public ObservableCollection<Appointment> SpisokNaznach
+        public Appointment SelectedNaznach
         {
-            get => spisokNaznach;
+            get => selectedNaznach;
             set
             {
-                spisokNaznach = value;
+                selectedNaznach = value;
+                Signal();
+            }
+        }
+
+        public ObservableCollection<Appointment> SpisokAppointment
+        {
+            get => spisokAppointment;
+            set
+            {
+                spisokAppointment = value;
                 Signal();
             }
         }
@@ -46,6 +59,16 @@ namespace Inventar.VM
             set
             {
                 doo = value;
+                Signal();
+            }
+        }
+
+        public ObservableCollection<Appointment> Appointments
+        {
+            get => appointments;
+            set
+            {
+                appointments = value;
                 Signal();
             }
         }
@@ -127,24 +150,23 @@ namespace Inventar.VM
 
             Naznachit = new CommandMvvm(() =>
             {
-                bool Peresech = false;
+                
                 Appointment appointment = new Appointment();
                 foreach (var naznach in appointments)
                 {
-                    if(appointment.OverLaps(naznach))
+                    if(OverLaps(naznach))
                     {
-                        Peresech = true;
-                        MessageBoxResult Oshibka = MessageBox.Show(
-                        "Вы не можете создать это назначение, потому  что этот временной интервал уже занят.",
-                        MessageBoxButton.Yes,
+                        
+                        MessageBox.Show(
+                        "Вы не можете создать это назначение, потому  что этот временной интервал уже занят.","Переделать",
+                        MessageBoxButton.OK,
                         MessageBoxImage.Question);
-                        if (Oshibka == MessageBoxResult.Yes)
-                        {
+
                             SelectAll();
                             Ot = DateTime.Now;
                             Do = DateTime.Now;
-                        }
-                        break;
+                            return;
+
                     }
 
                 }
@@ -154,6 +176,10 @@ namespace Inventar.VM
                 appointment.EquipmentDate = Ot;
                 appointment.ReturnDate = Do;
                 AppointmentDB.GetDb().Insert(appointment);
+                MessageBox.Show(
+                        "Вы успешно совершили назначение.", "Ок",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Question);
                 NewOwner = null;
                 Shtuka = null;
                 Ot = DateTime.Now;
@@ -172,6 +198,8 @@ namespace Inventar.VM
         {
             Employees = new ObservableCollection<Employee>(EmployeeDB.GetDb().SelectAll());
             Equipments = new ObservableCollection<Equipment>(EquipmentDB.GetDb().SelectAll());
+            Appointments = new ObservableCollection<Appointment>(AppointmentDB.GetDb().SelectAll());
+            SpisokAppointment = new ObservableCollection<Appointment>(AppointmentDB.GetDb().SelectAll());
         }
         Action close;
         internal void SetClose(Action close)
@@ -183,7 +211,7 @@ namespace Inventar.VM
         {
             if(NewOwner.ID == other.EmployeeID || Shtuka.ID == other.ID)
             {
-                    return Ot < other.ReturnDate && Do > other.EquipmentDate;
+                    return (Ot <= other.ReturnDate && Ot >= other.EquipmentDate)&&(Do <= other.ReturnDate && Do >= other.EquipmentDate);
             }
             return false;
             

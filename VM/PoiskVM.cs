@@ -371,7 +371,7 @@ namespace Inventar.VM
 
             Delete = new CommandMvvm(() =>
             {
-                MessageBoxResult vebor = MessageBox.Show(
+               MessageBoxResult vebor = MessageBox.Show(
                "Вы точно это хотите удалить?",
                "Подтверждение",
                MessageBoxButton.YesNo,

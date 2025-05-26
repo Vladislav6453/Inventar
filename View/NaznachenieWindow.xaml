@@ -48,8 +48,27 @@
             <Border CornerRadius="20" BorderThickness="1" Grid.Column="0" Grid.Row="3" VerticalAlignment="Top" BorderBrush="White" Background="White" Width="260">
                 <ComboBox SelectedItem = "{Binding NewOwner}" Height="40" Margin="10" Background="White" BorderThickness="0" ItemsSource="{Binding Employees}" DisplayMemberPath="Ktokto"/>
             </Border>
-            
-            
+
+            <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="White" CornerRadius="20"   ClipToBounds="True" Margin="10" Grid.ColumnSpan="2" Grid.Row="4">
+                <ListView Background="Transparent" BorderThickness="0" ItemsSource="{Binding SpisokAppointment}" SelectedItem="{Binding SelectedNaznach}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Владелец:" Width="60" />
+                                <TextBlock Text="{Binding Employee.LastName}" Width="55"/>
+                                <TextBlock Text="{Binding Employee.FirstName}" Width="70"/>
+                                <TextBlock Text="Название:" Width="60" />
+                                <TextBlock Text="{Binding Equipment.Name}" Width="160" />
+                                <TextBlock Text="Начало срока:" Width="85" />
+                                <TextBlock Text="{Binding EquipmentDate}" Width="170"/>
+                                <TextBlock Text="Конец срока:" Width="80" />
+                                <TextBlock Text="{Binding ReturnDate}" Width="150"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Border>
+
             <Border CornerRadius="20" Background="White" Margin="5" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom">
                 <Label Content="Выбрать оборудование" Margin="10" Background="White" BorderThickness="0" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Border>

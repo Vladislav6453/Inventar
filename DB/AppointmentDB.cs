@@ -171,7 +171,7 @@ namespace Inventar.DB
 
             if (connection.OpenConnection())
             {
-                var mc = connection.CreateCommand($"delete from `appointment` where `id` = {remove.ID}");
+                var mc = connection.CreateCommand($"delete from `Appointment` where `id` = {remove.ID}");
                 try
                 {
                     mc.ExecuteNonQuery();
