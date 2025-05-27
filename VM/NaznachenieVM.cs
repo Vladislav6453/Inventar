@@ -211,7 +211,7 @@ namespace Inventar.VM
         {
             if(NewOwner.ID == other.EmployeeID || Shtuka.ID == other.ID)
             {
-                    return (Ot <= other.ReturnDate && Ot >= other.EquipmentDate)&&(Do <= other.ReturnDate && Do >= other.EquipmentDate);
+                    return (Ot <= other.ReturnDate && Ot >= other.EquipmentDate)||(Do <= other.ReturnDate && Do >= other.EquipmentDate);
             }
             return false;
             
