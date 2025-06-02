@@ -156,7 +156,6 @@ namespace Inventar.VM
                 {
                     if(OverLaps(naznach))
                     {
-                        
                         MessageBox.Show(
                         "Вы не можете создать это назначение, потому  что этот временной интервал уже занят.","Переделать",
                         MessageBoxButton.OK,
@@ -211,7 +210,7 @@ namespace Inventar.VM
         {
             if(NewOwner.ID == other.EmployeeID || Shtuka.ID == other.ID)
             {
-                    return (Ot <= other.ReturnDate && Ot >= other.EquipmentDate)||(Do <= other.ReturnDate && Do >= other.EquipmentDate);
+                    return (Ot <= other.ReturnDate && Ot >= other.EquipmentDate)||(Do <= other.ReturnDate && Do >= other.EquipmentDate)||(Ot == other.EquipmentDate && Do == other.ReturnDate);
             }
             return false;
             
