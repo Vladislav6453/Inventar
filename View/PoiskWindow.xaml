@@ -148,15 +148,15 @@
                                         <TextBlock Text="Имя:" Width="30" />
                                         <TextBlock Text="{Binding FirstName}" Width="90"/>
                                         <TextBlock Text="Фамилия:" Width="60" />
-                                        <TextBlock Text="{Binding LastName}" Width="80"/>
+                                        <TextBlock Text="{Binding LastName}" Width="90"/>
                                         <TextBlock Text="Отчество:" Width="60" />
                                         <TextBlock Text="{Binding SurName}" Width="110"/>
                                         <TextBlock Text="Номер телефона:" Width="100" />
                                         <TextBlock Text="{Binding PhoneNumber}" Width="140"/>
                                         <TextBlock Text="Стаж работы:" Width="80" />
-                                        <TextBlock Text="{Binding WorkExperience}" Width="30"/>
+                                        <TextBlock Text="{Binding WorkExperience}" Width="40"/>
                                         <TextBlock Text="Email:" Width="35" />
-                                        <TextBlock Text="{Binding Email}" Width="150"/>
+                                        <TextBlock Text="{Binding Email}" Width="170"/>
                                         <TextBlock Text="Профессия:" Width="80" />
                                         <TextBlock Text="{Binding JobTitle.Name}" Width="120"/>
                                     </StackPanel>
@@ -173,13 +173,13 @@
                                         <TextBlock Text="Название:" Width="60" />
                                         <TextBlock Text="{Binding Name}" Width="150" />
                                         <TextBlock Text="Инвентарный номер:" Width="120" />
-                                        <TextBlock Text="{Binding InventoryNumber}" Width="70"/>
+                                        <TextBlock Text="{Binding InventoryNumber}" Width="90"/>
                                         <TextBlock Text="Дата покупки:" Width="80" />
-                                        <TextBlock Text="{Binding DateOfPurchase}" Width="160"/>
+                                        <TextBlock Text="{Binding DateOfPurchase}" Width="170"/>
                                         <TextBlock Text="Срок службы:" Width="80" />
-                                        <TextBlock Text="{Binding ServiceLife}" Width="50"/>
+                                        <TextBlock Text="{Binding ServiceLife}" Width="60"/>
                                         <TextBlock Text="Цена:" Width="35" />
-                                        <TextBlock Text="{Binding Price}" Width="80" />
+                                        <TextBlock Text="{Binding Price}" Width="120" />
                                         <TextBlock Text="Тип оборудования:" Width="110" />
                                         <TextBlock Text="{Binding EquipmentTipe.Name}" Width="200"/>
                                     </StackPanel>
@@ -194,9 +194,9 @@
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="Владелец:" Width="60" />
-                                        <TextBlock Text="{Binding Employee.LastName}" Width="65"/>
-                                        <TextBlock Text="{Binding Employee.FirstName}" Width="90"/>
-                                        <TextBlock Text="Название:" Width="60" />
+                                        <TextBlock Text="{Binding Employee.LastName}" Width="60"/>
+                                        <TextBlock Text="{Binding Employee.FirstName}" Width="60"/>
+                                        <TextBlock Text="Название оборудования:" Width="145" />
                                         <TextBlock Text="{Binding Equipment.Name}" Width="160" />
                                         <TextBlock Text="Начало срока:" Width="85" />
                                         <TextBlock Text="{Binding EquipmentDate}" Width="170"/>
