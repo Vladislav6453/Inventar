@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         DataContext="{DynamicResource vm}"
         WindowStartupLocation="CenterScreen"
-        Title="Poisk" Height="592" Width="800">
+        Title="Poisk" Height="700" Width="800">
     <Window.Resources>
         <mvvm:PoiskVM x:Key="vm"/>
     </Window.Resources>

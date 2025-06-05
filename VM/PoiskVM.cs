@@ -380,11 +380,36 @@ namespace Inventar.VM
                 {
                     if(VisibilitySotrudnik == Visibility.Visible)
                     {
+                        foreach(var naznach in SpisokNaznach)
+                        {
+                            if(naznach.EmployeeID == SelectedSotrudnik.ID)
+                            {
+                                MessageBox.Show(
+                                "Вы не можете удалить этого сотрудника, потому что он уже находится в назначении.", "Ок",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Question);
+                                SelectAll();
+                                return;
+                            }
+                        }
                         EmployeeDB.GetDb().Remove(SelectedSotrudnik);
                         SelectAll();
+
                     }
                     if (VisibilityOborud == Visibility.Visible)
                     {
+                        foreach (var naznach in SpisokNaznach)
+                        {
+                            if (naznach.EquipmentID == SelectedOborud.ID)
+                            {
+                                MessageBox.Show(
+                                "Вы не можете удалить этого оборудование, потому что оно уже находится в назначении.", "Ок",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Question);
+                                SelectAll();
+                                return;
+                            }
+                        }
                         EquipmentDB.GetDb().Remove(SelectedOborud);
                         SelectAll();
                     }
