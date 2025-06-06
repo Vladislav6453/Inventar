@@ -385,7 +385,7 @@ namespace Inventar.VM
                             if(naznach.EmployeeID == SelectedSotrudnik.ID)
                             {
                                 MessageBox.Show(
-                                "Вы не можете удалить этого сотрудника, потому что он уже находится в назначении.", "Ок",
+                                $"Вы не можете удалить этого сотрудника, потому что он уже находится в назначении с ID {naznach.ID}.", "Ок",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Question);
                                 SelectAll();
@@ -403,7 +403,7 @@ namespace Inventar.VM
                             if (naznach.EquipmentID == SelectedOborud.ID)
                             {
                                 MessageBox.Show(
-                                "Вы не можете удалить это оборудование, потому что оно уже находится в назначении.", "Ок",
+                                $"Вы не можете удалить это оборудование, потому что оно уже находится в назначении с ID {naznach.ID}.", "Ок",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Question);
                                 SelectAll();
