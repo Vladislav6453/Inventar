@@ -193,6 +193,8 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="ID назначения:" Width="85" />
+                                        <TextBlock Text="{Binding ID}" Width="50"/>
                                         <TextBlock Text="Владелец:" Width="60" />
                                         <TextBlock Text="{Binding Employee.LastName}" Width="60"/>
                                         <TextBlock Text="{Binding Employee.FirstName}" Width="60"/>
