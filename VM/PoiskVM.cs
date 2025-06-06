@@ -403,7 +403,7 @@ namespace Inventar.VM
                             if (naznach.EquipmentID == SelectedOborud.ID)
                             {
                                 MessageBox.Show(
-                                "Вы не можете удалить этого оборудование, потому что оно уже находится в назначении.", "Ок",
+                                "Вы не можете удалить это оборудование, потому что оно уже находится в назначении.", "Ок",
                                 MessageBoxButton.OK,
                                 MessageBoxImage.Question);
                                 SelectAll();
